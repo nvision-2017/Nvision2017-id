@@ -30,3 +30,9 @@
   "exp": 1482955996
 }
 ```
+
+
+## Signout
+
+`http://localhost:3001/signout?url=http://nvision.org.in/`
+After signout user will be redirected to specified url.

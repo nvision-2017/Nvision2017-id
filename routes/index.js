@@ -137,6 +137,14 @@ exports = module.exports = function (app) {
         });
     });
 
+    app.get('/signout', (req, res)=>{
+        var callbackUrl = req.query.url;
+        if (!callbackUrl) callbackUrl = '/';
+        keystone.session.signout(req, res, function(){
+            res.redirect(callbackUrl);
+        });
+    });
+
     app.post('/forgotpassword', (req, res)=>{
         var email = req.body.email;
         if (!email) {
@@ -202,21 +210,6 @@ exports = module.exports = function (app) {
             }
         });
     });
-
-    // app.get('/dashboard', (req, res)=>{
-    //     var view = new keystone.View(req, res);
-    //     if (!req.user) {
-    //         return res.redirect('/signin');
-    //     }
-    //     if (!req.user.emailVerified) {
-    //         return view.render('dashboard', {emailnv:true, user:req.user, updates: keystone.get('updatesWeb')});
-    //     }
-    //     Registration.model.find({user: req.user._id}).populate('event').exec().then(r=>{
-    //         return view.render('dashboard', {reg:r, n:r.length, user:req.user, updates: keystone.get('updatesWeb')});
-    //     }, e=>{
-    //         return res.redirect('/');
-    //     });
-    // });
 
     app.post('/resendemail', (req, res)=>{
         if (!req.user){
