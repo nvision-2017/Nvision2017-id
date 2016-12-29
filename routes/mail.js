@@ -684,9 +684,9 @@ let mail = {};
 
 mail.sendVEmail = function(tk, email) {
     var mailOptions = {
-        from: 'Nvision 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
+        from: 'Nvision 2017 and Elan 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
         to: email,
-        subject: 'Email verfication - ηvision 2017',
+        subject: 'Email verfication',
         text: `Verify your email here : https://id.nvision.org.in/verify?token=${tk}`,
         html: template(email, 'Welcome to &eta;vision', 'Here is the last step for signup', 'Click here to confirm', `https://id.nvision.org.in/verify?token=${tk}`)
     };
@@ -712,9 +712,9 @@ mail.sendRegisteredMail = function(email, name, ename, elink) {
 
 mail.sendFMail = function(email, tk, name) {
 	var mailOptions = {
-        from: 'Nvision 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
+        from: 'Nvision 2017 and Elan 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
         to: email,
-        subject: 'Forgot Password - ηvision 2017',
+        subject: 'Forgot Password',
         text: `Reset your password here : https://id.nvision.org.in/forgot?token=${tk}`,
         html: template(email, `Hi ${name},`, 'Click on the button below to reset your password', 'Reset Password', `https://id.nvision.org.in/forgot?token=${tk}`)
     };
