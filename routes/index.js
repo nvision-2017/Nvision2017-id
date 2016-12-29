@@ -35,10 +35,13 @@ keystone.set('500', function (err, req, res, next) {
 
 // Bind Routes
 exports = module.exports = function (app) {
+    app.get('/', (req, res)=>{
+        res.redirect('https://nvision.org.in');
+    })
     app.get('/signin', (req, res, next)=>{
         var callbackUrl = req.query.url;
         if (!callbackUrl) {
-            return res.notfound();
+            callbackUrl = "/keystone";
         }
         if (req.user) {
             var tk = jwt.sign({user: req.user}, tokenSecret, {expiresIn: 900});
