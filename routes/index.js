@@ -36,15 +36,22 @@ keystone.set('500', function (err, req, res, next) {
 // Bind Routes
 exports = module.exports = function (app) {
     app.get('/', (req, res)=>{
-        res.redirect('/signin');
+        if (req.user) {
+            res.render('home');
+        }
+        else {
+            res.redirect('/signin');
+        }
     })
     app.get('/signin', (req, res, next)=>{
         var callbackUrl = req.query.url;
         if (!callbackUrl) {
-            callbackUrl = "/keystone";
+            callbackUrl = "/";
         }
         if (req.user) {
-            var tk = jwt.sign({user: req.user}, tokenSecret, {expiresIn: 900});
+            var user = req.user;
+            user.password = undefined;
+            var tk = jwt.sign({user: user}, tokenSecret, {expiresIn: 900});
             return res.redirect(callbackUrl+"?token="+tk);
         }
         var view = new keystone.View(req, res);
@@ -57,7 +64,11 @@ exports = module.exports = function (app) {
             password: req.body.password
         }, req, res, user=>{
             if (!user) res.json({status: false, message: 'Invalid credentials'});
-            else res.json({status: true, token: jwt.sign({user: req.user}, tokenSecret, {expiresIn: 900})});
+            else {
+                var user = req.user;
+                user.password = undefined;
+                res.json({status: true, token: jwt.sign({user: user}, tokenSecret, {expiresIn: 900})});
+            }
         }, err=>{res.json({status: false, message: 'Invalid credentials'});});
     });
 
@@ -108,6 +119,7 @@ exports = module.exports = function (app) {
                 email: req.body.email,
                 password: req.body.password
             }, req, res, (user)=>{
+                user.password = undefined;
                 return res.json({status: true, token: jwt.sign({user: user}, tokenSecret, {expiresIn: 900}), verified: false, message: 'A verification email sent'});
             }, (err) => res.json({status: false, message: "Auth failed"}));
         }, (err)=>{
@@ -150,6 +162,10 @@ exports = module.exports = function (app) {
 
     app.post('/forgotpassword', (req, res)=>{
         var email = req.body.email;
+        var callbackUrl = req.body.callbackUrl;
+        if (!callbackUrl) {
+            callbackUrl = '/';
+        }
         if (!email) {
             return res.json({status:false, message: 'Email not provided'});
         }
@@ -157,7 +173,7 @@ exports = module.exports = function (app) {
             if (!user) {
                 return res.json({status: false, message: 'No user with this email found'});
             }
-            var token = jwt.sign({token:'forgot'+user.verificationToken}, tokenSecret, {expiresIn: 900});
+            var token = jwt.sign({token:'forgot'+user.verificationToken, callbackUrl: callbackUrl}, tokenSecret, {expiresIn: 900});
             Mail.sendFMail(email, token, `${user.name.first} ${user.name.last}`);
             return res.json({status:true, message: 'Sent an email to reset password'});
         }, err=>{
@@ -177,7 +193,7 @@ exports = module.exports = function (app) {
                 if (token.substr(0, 6) != "forgot") return res.notfound();
                 User.model.findOne({verificationToken: token.substr(6)}).then(user=>{
                     if (!user) return res.notfound();
-                    res.render('forgot', {user: req.user, token: oldtoken, updates: keystone.get('updatesWeb')});
+                    res.render('forgot', {user: req.user, token: oldtoken, callbackUrl: decoded.callbackUrl});
                 }, err=>res.notfound());
             }
         });
@@ -196,6 +212,7 @@ exports = module.exports = function (app) {
             if (err) return res.json({status: 'Invaid token'});
             else {
                 var token = decoded.token;
+                var callbackUrl = decoded.callbackUrl;
                 console.log(token);
                 if (token.substr(0, 6) != "forgot") return res.json({status: 'Invaid token'});
                 User.model.findOne({verificationToken: token.substr(6)}).then(user=>{
@@ -203,7 +220,7 @@ exports = module.exports = function (app) {
                     user.password = password;
                     user.verificationToken = randtoken.generate(64);
                     user.save().then(user=>{
-                        res.json({status: true, redirectURL: '/dashboard', message: 'Updated password'});
+                        res.json({status: true, redirectURL: callbackUrl, message: 'Updated password'});
                     }, err=>{
                         res.json({status: false, message: 'Error'});
                     });
@@ -215,11 +232,15 @@ exports = module.exports = function (app) {
     });
 
     app.post('/resendemail', (req, res)=>{
+        var callbackUrl = req.body.url;
+        if (!callbackUrl) {
+            callbackUrl = '/';
+        }
         if (!req.user){
             return res.json({status:false, message: 'Auth failed'});
         }
         if (!req.emailVerified) {
-        var token = jwt.sign({token:req.user.verificationToken}, tokenSecret, {expiresIn: 900});
+        var token = jwt.sign({token:req.user.verificationToken, callbackUrl: callbackUrl}, tokenSecret, {expiresIn: 900});
             sendVEmail(token, req.user.email);
             return res.json({status:true});
         }

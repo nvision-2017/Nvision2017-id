@@ -161,7 +161,7 @@ var template = (email, heading, body, aname, alink)=>{return `
 								<td width="200" valign="top" align="center">
 									<div class="contentEditableContainer contentImageEditable">
 					                	<div class="contentEditable" align='center' >
-					                  		<img src="https://id.nvision.org.in/img/nvision_b.png" height="120"  alt='Logo'  data-default="placeholder" />
+					                  		<img src="https://id.nvision.org.in/img/all_logo1.png" height="120"  alt='Logo'  data-default="placeholder" />
 					                	</div>
 					              	</div>
 								</td>
@@ -231,7 +231,7 @@ var template = (email, heading, body, aname, alink)=>{return `
 								<td width="60%" height="70" valign="middle" style="padding-bottom:20px;">
 									<div class="contentEditableContainer contentTextEditable">
 					                	<div class="contentEditable" align='left' >
-					                  		<span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">Sent to ${email} by &eta;vision 2017</span>
+					                  		<span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">Sent to ${email}</span>
 											<br/>
 											<span style="font-size:11px;color:#555;font-family:Helvetica, Arial, sans-serif;line-height:200%;">IIT Hyderabad</span>
 											<br/></div>
@@ -684,11 +684,11 @@ let mail = {};
 
 mail.sendVEmail = function(tk, email) {
     var mailOptions = {
-        from: 'Nvision 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
+        from: 'Nvision 2017 and Elan 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
         to: email,
-        subject: 'Email verfication - ηvision 2017',
+        subject: 'Email verfication',
         text: `Verify your email here : https://id.nvision.org.in/verify?token=${tk}`,
-        html: template(email, 'Welcome to &eta;vision', 'Here is the last step for signup', 'Click here to confirm', `https://id.nvision.org.in/verify?token=${tk}`)
+        html: template(email, '', 'Here is the last step for signup', 'Click here to confirm', `https://id.nvision.org.in/verify?token=${tk}`)
     };
     transporter.sendMail(mailOptions, function(err, info){
         if (err) return console.log(err);
@@ -698,9 +698,9 @@ mail.sendVEmail = function(tk, email) {
 
 mail.sendRegisteredMail = function(email, name, ename, elink) {
 	var mailOptions = {
-        from: 'Nvision 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
+        from: 'Nvision 2017 and Elan 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
         to: email,
-        subject: 'Successfully registered for event '+ename+' - ηvision 2017',
+        subject: 'Successfully registered for event '+ename,
         text: `Successfully registered for event ${ename}`,
         html: template(email, `Hi ${name},`, `You have successfully registered for the event ${ename}`, `More about ${ename}`, elink)
     };
@@ -712,9 +712,9 @@ mail.sendRegisteredMail = function(email, name, ename, elink) {
 
 mail.sendFMail = function(email, tk, name) {
 	var mailOptions = {
-        from: 'Nvision 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
+        from: 'Nvision 2017 and Elan 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
         to: email,
-        subject: 'Forgot Password - ηvision 2017',
+        subject: 'Forgot Password',
         text: `Reset your password here : https://id.nvision.org.in/forgot?token=${tk}`,
         html: template(email, `Hi ${name},`, 'Click on the button below to reset your password', 'Reset Password', `https://id.nvision.org.in/forgot?token=${tk}`)
     };

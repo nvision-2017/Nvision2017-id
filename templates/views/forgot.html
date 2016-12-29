@@ -150,30 +150,26 @@
     </div> -->
 
     <div class="row row-cen">
+
+         
         <div class="col-lg-8 col-sm-12 col-cen" style="text-align: left">
-            <ul class="collapsible" data-collapsible="accordion">
-                <li>
-                    <div class="collapsible-header center">LOGIN</div>
-                    <div class="collapsible-body">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">email</i>
-                            <input id="login-email" name="email" type="email" class="validate input-login">
-                            <label for="login-email">Email</label>
-                        </div>
+            
+<div class="input-field col s12">
+            <i class="material-icons prefix">vpn_key</i>
+            <input id="login-password" name="password" type="password" class="validate input-login">
+            <label for="login-password">Password</label>
+        </div>
 
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">vpn_key</i>
-                            <input id="login-password" name="password" type="password" class="validate input-login">
-                            <label for="login-password">Password</label>
-                        </div>
+        <div class="input-field col s12">
+            <i class="material-icons prefix">vpn_key</i>
+            <input id="login-repassword" name="repassword" type="password" class="validate input-login">
+            <label for="login-repassword">Password again</label>
+        </div>
 
-                        <button id="login" class="form-btn" type="submit">Submit</button>
-                    </div>
-                </li>
-            </ul>
+        <button id="login" class="form-btn" type="submit">Reset Password</button>
 
 
-            <ul class="collapsible" data-collapsible="accordion">
+            <!--<ul class="collapsible" data-collapsible="accordion">
                 <li>
                     <div class="collapsible-header center">SIGNUP</div>
                     <div class="collapsible-body">
@@ -212,7 +208,7 @@
                     </div>
                 </li>
             </ul>
-            <a href="#" data-toggle="modal" data-target="#forgotM" style="font-size: 1.2em;margin-top: 1em;float:right">Forgot Password?</a>
+            <a href="#" data-toggle="modal" data-target="#forgotM" style="font-size: 1.2em;margin-top: 1em;float:right">Forgot Password?</a>-->
         </div>
     </div>
 
@@ -253,44 +249,6 @@
             }
         });
 
-        $("#signup").click(function () {
-
-            var invalidFlag = false;
-            $('input.input-signup').each(function () {
-                if (($(this).attr('name') != 'password' && /^\s*$/.test($(this).val())) || $(this).val() == "") invalidFlag = true;
-            });
-
-            if (invalidFlag) {
-                alert('All fields are mandatory');
-            } else if ($("#signup-password").val().length < 6) {
-                alert('Password length should be >=6')
-            } else {
-
-                var body = {
-                    name: $("#name").val(),
-                    email: $("#signup-email").val(),
-                    college: $("#college").val(),
-                    phone: $("#phone").val(),
-                    password: $("#signup-password").val(),
-                    callbackUrl: '{{callbackUrl}}'
-                };
-
-                console.log(body);
-
-                $("#signup").prop('disabled', true);
-                $.post('/signup', body, function (res) {
-                    $("#signup").prop('disabled', false);
-                    if (res.status) {
-                        window.location = '{{callbackUrl}}?token='+res.token;
-                    } else {
-                        alert(res.message);
-                    }
-                });
-
-            }
-
-        });
-
         $("#login").click(function () {
 
             var invalidFlag = false;
@@ -300,20 +258,23 @@
 
             if (invalidFlag) {
                 alert('All fields are mandatory');
+            } else if($('#login-password').val().length < 6) {
+                alert('Password should be atlest 6 characters long')
+            } else if ($('#login-password').val() != $('#login-repassword').val()){
+                alert('Both passwords do not match');
             } else {
 
                 var body = {
-
-                    email: $("#login-email").val(),
-                    password: $("#login-password").val()
+                    password: $("#login-password").val(),
+                    token: '{{token}}'
                 };
 
                 console.log(body);
                 $("#login").prop('disabled', true);
-                $.post('/signin', body, function (res) {
+                $.post('/forgot', body, function (res) {
                     $("#login").prop('disabled', false);
                     if (res.status) {
-                        window.location = '{{callbackUrl}}?token='+res.token;
+                        window.location = res.redirectURL;
                     } else {
                         alert(res.message);
                     }
@@ -321,35 +282,6 @@
 
             }
 
-        });
-
-        $("#forgot").click(function () {
-            var invalidFlag = false;
-            $('input.input-forgot').each(function () {
-                if (($(this).attr('name') != 'password' && /^\s*$/.test($(this).val())) || $(this).val() == "") invalidFlag = true;
-            });
-
-            if (invalidFlag) {
-                alert('All fields are mandatory');
-            } else {
-
-                var body = {
-                    email: $("#forgot-email").val(),
-                    callbackUrl: '{{callbackUrl}}'
-                };
-
-                console.log(body);
-                $("#forgot").prop('disabled', true);
-                $.post('/forgotpassword', body, function (res) {
-                    $("#forgot").prop('disabled', false);
-                    if (res.status) {
-                        alert('An email to reset password has been sent. Check your mail.');
-                    } else {
-                        alert(res.message);
-                    }
-                });
-
-            }
         });
 
     });
