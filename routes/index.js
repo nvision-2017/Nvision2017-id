@@ -64,7 +64,11 @@ exports = module.exports = function (app) {
             password: req.body.password
         }, req, res, user=>{
             if (!user) res.json({status: false, message: 'Invalid credentials'});
-            else res.json({status: true, token: jwt.sign({user: req.user}, tokenSecret, {expiresIn: 900})});
+            else {
+                var user = req.user;
+                user.password = undefined;
+                res.json({status: true, token: jwt.sign({user: user}, tokenSecret, {expiresIn: 900})});
+            }
         }, err=>{res.json({status: false, message: 'Invalid credentials'});});
     });
 
@@ -115,6 +119,7 @@ exports = module.exports = function (app) {
                 email: req.body.email,
                 password: req.body.password
             }, req, res, (user)=>{
+                user.password = undefined;
                 return res.json({status: true, token: jwt.sign({user: user}, tokenSecret, {expiresIn: 900}), verified: false, message: 'A verification email sent'});
             }, (err) => res.json({status: false, message: "Auth failed"}));
         }, (err)=>{
