@@ -36,7 +36,7 @@ keystone.set('500', function (err, req, res, next) {
 // Bind Routes
 exports = module.exports = function (app) {
     app.get('/', (req, res)=>{
-        res.redirect('https://nvision.org.in');
+        res.redirect('/signin');
     })
     app.get('/signin', (req, res, next)=>{
         var callbackUrl = req.query.url;
