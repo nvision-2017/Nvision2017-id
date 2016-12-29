@@ -161,7 +161,7 @@ var template = (email, heading, body, aname, alink)=>{return `
 								<td width="200" valign="top" align="center">
 									<div class="contentEditableContainer contentImageEditable">
 					                	<div class="contentEditable" align='center' >
-					                  		<img src="https://id.nvision.org.in/img/all_logo1.png" height="120"  alt='Logo'  data-default="placeholder" />
+					                  		<img src="https://id.nvision.org.in/img/all_logo1.png" width="200"  alt='Logo'  data-default="placeholder" />
 					                	</div>
 					              	</div>
 								</td>
@@ -203,14 +203,12 @@ var template = (email, heading, body, aname, alink)=>{return `
 								<td width="200">&nbsp;</td>
 								<td width="200" align="center" style="padding-top:25px;">
 									<table cellpadding="0" cellspacing="0" border="0" align="center" width="200" height="50">
-										<tr>
+										<tr>`+ (aname ?`
 											<td bgcolor="#072347" align="center" style="border-radius:4px;" width="200" height="50">
 												<div class="contentEditableContainer contentTextEditable">
-								                	<div class="contentEditable" align='center' >
-								                  		<a target='_blank' href="${alink}" class='link2'>${aname}</a>
-								                	</div>
-								              	</div>
-											</td>
+													<div class="contentEditable" align='center' ><a target='_blank' href="${alink}" class='link2'>${aname}</a></div>
+								                </div>
+											</td>`:``)+`
 										</tr>
 									</table>
 								</td>
@@ -739,6 +737,36 @@ mail.sendPPMail = function(email, name) {
         console.log('Message sent : '+info.response);
     });
 }
+
+
+mail.sendAMail = function(email, name) {
+	var mailOptions = {
+        from: 'Nvision 2017 and Elan 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
+        to: email,
+        subject: 'Successfully requested for Accomodation',
+        text: `Successfully requested for Accomodation`,
+        html: template(email, `Hi ${name},`, 'You have successfully requested for accomodation')
+    };
+    transporter.sendMail(mailOptions, function(err, info){
+        if (err) return console.log(err);
+        console.log('Message sent : '+info.response);
+    });
+}
+
+mail.sendAAMail = function(email, name) {
+	var mailOptions = {
+        from: 'Nvision 2017 and Elan 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
+        to: email,
+        subject: 'Your accomodation is confirmed',
+        text: `Successfully requested for Accomodation`,
+        html: template(email, `Hi ${name},`, 'Your accomodation is confirmed')
+    };
+    transporter.sendMail(mailOptions, function(err, info){
+        if (err) return console.log(err);
+        console.log('Message sent : '+info.response);
+    });
+}
+
 
 
 module.exports = exports = mail;

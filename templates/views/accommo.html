@@ -1,19 +1,3 @@
-<!--<form action="/signin" method="post">
-<input type="text" name="email" placeholder="email"><br>
-<input type="password" name="password" placeholder="password"><br>
-<input type="submit"><br>
-</form><br><br>
-
-<form action="/signup" method="post">
-<input type="text" name="name" placeholder="name"><br>
-<input type="text" name="email" placeholder="email"><br>
-<input type="text" name="college" placeholder="college"><br>
-<input type="text" name="phone" placeholder="phone"><br>
-<input type="password" name="password" placeholder="password"><br>
-</form>-->
-
-
-
 <!DOCTYPE html>
 <html lang="en-IN">
 
@@ -156,7 +140,6 @@
 </head>
 
 <body class="custom-scrollbar">
-<div id="pre-loader"></div>
 <div class="container-fluid">
 
     <div class="the-logo"></div>
@@ -173,32 +156,48 @@
                     color: #000;
                 }
             </style>
-            <form action="#">
-                <h3><strong>Accommodation</strong></h4>
+            <h3><strong>Accommodation</strong></h4>
+            {{#if accommo}}
+            <div id="accommodiv">
+              <p class="center">
+                <h5>Gender : {{accommo.gender}}</h5>
+              </p>
+              <p class="center">
+                <h5>Days</h5>
+                <h6>20<sup>th</sup> January : {{#if accommo.on20}}Yes{{else}}No{{/if}}</h6>
+                <h6>21<sup>th</sup> January : {{#if accommo.on21}}Yes{{else}}No{{/if}}</h6>
+                <h6>22<sup>th</sup> January : {{#if accommo.on22}}Yes{{else}}No{{/if}}</h6>
+              </p>
+              <p>
+                <a href="#" id="accommolink">Edit accommodation details</a>
+              </p>
+            </div>
+            {{/if}}
+            <form action="/accommodation" method="post" id="accommoform">
                 <span>(clicking Enter key will submit the form)</span>
                 <h5>&#x20b9; 300/night (without food)</h5>
                 <h4>Gender:</h4>
                 <p class="center">
-                  <input class="with-gap" name="gender" type="radio" id="g-male" value="male" checked>
-                  <label for="g-male">Male</label>
+                  <input class="with-gap" name="gender" type="radio" id="g-Male" value="Male" checked>
+                  <label for="g-Male">Male</label>
                 </p>
                 <p class="center">
-                  <input class="with-gap" name="gender" type="radio" value="female" id="g-female">
-                  <label for="g-female">Female</label>
+                  <input class="with-gap" name="gender" type="radio" value="Female" id="g-Female">
+                  <label for="g-Female">Female</label>
                 </p>
 
                 <h4>Days:</h4>
                 <p class="center">
-                  <input class="filled-in" name="days" type="checkbox" id="d-19">
-                  <label for="d-19">19<sup>th</sup> January</label>
-                </p>
-                <p class="center">
-                  <input class="filled-in" name="days" type="checkbox" id="d-20">
+                  <input class="filled-in" name="on20" type="checkbox" id="d-20">
                   <label for="d-20">20<sup>th</sup> January</label>
                 </p>
                 <p class="center">
-                  <input class="filled-in" name="days" type="checkbox" id="d-21">
-                  <label for="d-21">21<sup>st</sup> January</label>
+                  <input class="filled-in" name="on21" type="checkbox" id="d-21">
+                  <label for="d-21">21<sup>th</sup> January</label>
+                </p>
+                <p class="center">
+                  <input class="filled-in" name="on22" type="checkbox" id="d-22">
+                  <label for="d-22">22<sup>st</sup> January</label>
                 </p>
 
                 <button class="form-btn" type="submit">Submit</button>
@@ -215,6 +214,39 @@
 <script src="https://nvision.org.in/js/bootstrap.min.js"></script>
 <script src="https://nvision.org.in/js/materialize.min.js"></script>
 <script src="https://nvision.org.in/js/main.js"></script>
+
+<script>
+$(document).ready(function(){
+  {{#if accommo}}
+  $("#accommoform").hide();
+  $("#g-"+"{{accommo.gender}}").prop('checked', true);
+  $("#d-20").prop('checked', {{accommo.on20}});
+  $("#d-21").prop('checked', {{accommo.on21}});
+  $("#d-22").prop('checked', {{accommo.on22}});
+  $("#accommolink").click(function(){
+    $("#accommoform").toggle();
+    $("#accommodiv").toggle();
+  });
+  {{/if}}
+  $("#accommoform").submit(function(e){
+    e.preventDefault();
+    var body = {
+      gender: $("input[name=gender]:checked").val(),
+      on20: $("#d-20").prop('checked'),
+      on21: $("#d-21").prop('checked'),
+      on22: $("#d-22").prop('checked')
+    }
+    $.post('/accommodation', body, function(res){
+      if (res.status) {
+        alert(res.message);
+        location.reload();
+      } else {
+        alert(res.message);
+      }
+    });
+  });
+});
+</script>
 
 </body>
 

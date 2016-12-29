@@ -3,6 +3,8 @@ middleware = require('./middleware'),
 importRoutes = keystone.importer(__dirname),
 User = keystone.list('User');
 
+const Accommodation = keystone.list('Accommodation');
+
 var randtoken = require('rand-token');
 
 const Mail = require('./mail');
@@ -213,7 +215,6 @@ exports = module.exports = function (app) {
             else {
                 var token = decoded.token;
                 var callbackUrl = decoded.callbackUrl;
-                console.log(token);
                 if (token.substr(0, 6) != "forgot") return res.json({status: 'Invaid token'});
                 User.model.findOne({verificationToken: token.substr(6)}).then(user=>{
                     if (!user) return res.json({status:false, message: 'Invalid token'});
@@ -245,4 +246,62 @@ exports = module.exports = function (app) {
             return res.json({status:true});
         }
     });
+
+    app.get('/accommodation', (req, res)=>{
+        var view = new keystone.View(req, res);
+        if (!req.user) {
+            return res.redirect('/signin?url=/accommodation');
+        }
+        Accommodation.model.findOne({user: req.user._id}).then(acco=>{
+            view.render('accommo', {accommo: acco});
+        }, err=>{
+            view.render('accommo');
+        });
+    });
+
+    app.post('/accommodation', (req, res)=>{
+        if (!req.user) {
+            return res.send({status: false, message: 'Auth failed'});
+        }
+        if (!req.user.emailVerified) {
+            return rres.send({status: false, message: 'Email is not verified'});
+        }
+        if (!req.body.gender || (req.body.gender != 'Male' && req.body.gender != 'Female')) {
+            return res.send({status: false, message: 'Gender not specified'});
+        }
+        Accommodation.model.findOne({user: req.user._id}).then(acc=>{
+            if (acc) {
+                acc.gender = req.body.gender;
+                acc.on20 = req.body.on20;
+                acc.on21 = req.body.on21;
+                acc.on22 = req.body.on22;
+                acc.mailStatus = false;
+                acc.confirmed = false;
+                acc.save().then(acc=>{
+                    Mail.sendAMail(req.user.email, req.user.name.first+' '+req.user.name.last);
+                    res.json({status: true, message: 'Successfully requested for accomodation'});
+                }, err=>{
+                    res.json({status: false, message: 'Error'});
+                });
+            } else {
+                new Accommodation.model({
+                    user: req.user._id,
+                    gender: req.body.gender,
+                    on20: req.body.on20,
+                    on21: req.body.on21,
+                    on22: req.body.on22,
+                    confirmed: false,
+                    mailStatus: false
+                }).save().then(acc=>{
+                    Mail.sendAMail(req.email, req.name.first+' '+req.name.last);
+                    res.json({status: true, message: 'Successfully requested for accomodation'});
+                }, err=>{
+                    res.json({status: false, message: 'Error'});
+                });
+            }
+        }, err=>{
+            res.json({status: false, message: 'Error!'});
+        });
+    });
+
 };
