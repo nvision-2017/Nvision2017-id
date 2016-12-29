@@ -49,7 +49,9 @@ exports = module.exports = function (app) {
             callbackUrl = "/";
         }
         if (req.user) {
-            var tk = jwt.sign({user: req.user}, tokenSecret, {expiresIn: 900});
+            var user = req.user;
+            user.password = undefined;
+            var tk = jwt.sign({user: user}, tokenSecret, {expiresIn: 900});
             return res.redirect(callbackUrl+"?token="+tk);
         }
         var view = new keystone.View(req, res);
