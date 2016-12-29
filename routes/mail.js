@@ -161,7 +161,7 @@ var template = (email, heading, body, aname, alink)=>{return `
 								<td width="200" valign="top" align="center">
 									<div class="contentEditableContainer contentImageEditable">
 					                	<div class="contentEditable" align='center' >
-					                  		<img src="https://id.nvision.org.in/img/nvision_b.png" height="120"  alt='Logo'  data-default="placeholder" />
+					                  		<img src="https://id.nvision.org.in/img/all_logo1.png" height="120"  alt='Logo'  data-default="placeholder" />
 					                	</div>
 					              	</div>
 								</td>

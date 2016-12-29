@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+
+<head>
+    <meta charset="utf-8">
+    <title>Register | &eta;vision 2017 | Techno management fest of IIT Hyderabad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="&eta;vision is the techno-management fest of IIT Hyderabad.">
+    <meta name="copyright" content="&eta;vision 2017">
+    <meta name="author" content="&eta;vision 2017">
+    <meta name="keyword" content="nvision,vision,techno,tech,management,technical,iit hyderabad, iit,fest, competitions,events,event,hyderabad,iith,students,robots,sponsors,games,awesome,workshops,kludge,infero,cephid,ecell,robotics,equilibria,torque,electronica">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#283389">
+    <meta property="og:site_name" content="&eta;vision">
+    <meta property="og:title" content="&eta;vision 2017">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://nvision.org.in/img/logo.png">
+    <meta property="og:description" content="&eta;vision: techno-management Fest of IIT Hyderabad">
+
+    <link rel="stylesheet" href="https://nvision.org.in/css/animate.css">
+    <link rel="stylesheet" href="https://nvision.org.in/css/updates.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://nvision.org.in/css/main.css">
+    <link rel="stylesheet" href="https://nvision.org.in/css/style.css">
+    <link rel="stylesheet" href="https://nvision.org.in/css/materialize.min.css">
+    <link rel="stylesheet" href="https://nvision.org.in/css/stars.css" media="only screen and (min-width: 600px)">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+    .md-close {
+      color: #fff;
+      margin-top: 6em !important;
+      border: 1px solid #fff;
+      transition-duration: 0.3s;
+    }
+    
+    .md-close:hover {
+      background-color: #fff !important;
+      color: #000 !important;
+    }
+    
+    .md-content {
+      /*width: 70vw;*/
+      /*height: 100vh;*/
+      text-align: center;
+      padding-top: 6em;
+      border: 1px solid #fff;
+    }
+    
+    .md-content {
+      background-color: rgba(0, 0, 0, 0.8) !important;
+    }
+
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: 0; 
+    }
+
+
+    .form-btn {
+      width: 100%;
+      font-weight: bold;
+      display: inline-block;
+      vertical-align: middle;
+      background: #1AAB8A;
+      color: #000;
+      border: none;
+      position: relative;
+      height: 40px;
+      font-size: 1.2em;
+      padding: 0.5em 2em;
+      cursor: pointer;
+      transition: 800ms ease all;
+      outline: none;
+    }
+    
+    .form-btn:hover {
+      background: #000;
+      color: #1AAB8A;
+    }
+    
+    .form-btn:before,
+    .form-btn:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 2px;
+      width: 0;
+      background: #1AAB8A;
+      transition: 400ms ease all;
+    }
+    
+    .form-btn:after {
+      right: inherit;
+      top: inherit;
+      left: 0;
+      bottom: 0;
+    }
+    
+    .form-btn:hover:before,
+    .form-btn:hover:after {
+      width: 100%;
+      transition: 800ms ease all;
+    }
+
+  </style>
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-89025632-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+</head>
+
+<body class="custom-scrollbar" style="overflow-x:hidden">
+<div id="pre-loader"></div>
+<div id='stars'></div>
+<div id='stars2'></div>
+<div id='stars3'></div>
+
+<div class="md-modal md-effect-19 md-effect-12 md-effect-13" id="updates-modal" style="text-align:center">
+<div class="md-content">
+    <h3><b>Updates<span style="color:#f00;font-size:1.2em;font-weight:bold">&#33;</span>
+</b>
+</h3>
+<div>
+    <ul>
+        {{#each updates}}
+        <li>{{{this}}}</li>
+        {{/each}}
+    </ul>
+    <button class="btnfos md-close">Close</button>
+</div>
+</div>
+</div>
+<div class="md-overlay"></div>
+<!-- the overlay element -->
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-lg-3"></div>
+
+        <div class="col-lg-6">
+            <h3 style="text-align:center">Login</h3>
+        <div>
+
+    <div class="input-field col s12">
+        <i class="material-icons prefix">vpn_key</i>
+        <input id="login-password" name="password" type="password" class="validate input-login">
+        <label for="login-password">Password</label>
+    </div>
+
+    <div class="input-field col s12">
+        <i class="material-icons prefix">vpn_key</i>
+        <input id="login-repassword" name="repassword" type="password" class="validate input-login">
+        <label for="login-repassword">Password again</label>
+    </div>
+
+    <button id="login" class="form-btn" type="submit">Reset Password</button>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<script src="https://nvision.org.in/js/jquery.min.js"></script>
+<script src="https://nvision.org.in/js/bootstrap.min.js"></script>
+<script src="https://nvision.org.in/js/materialize.min.js"></script>
+<script src="https://nvision.org.in/js/main.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('input').unbind().blur(function () {
+            if (($(this).attr('name') != 'password' && /^\s*$/.test($(this).val())) || $(this).val() == "") {
+                $(this).removeClass('valid').addClass('invalid');
+            } else {
+                $(this).removeClass('invalid').addClass('valid');
+            }
+        });
+
+        $("#login").click(function () {
+
+            var invalidFlag = false;
+            $('input.input-login').each(function () {
+                if (($(this).attr('name') != 'password' && /^\s*$/.test($(this).val())) || $(this).val() == "") invalidFlag = true;
+            });
+
+            if (invalidFlag) {
+                alert('All fields are mandatory');
+            } else if($('#login-password').val().length < 6) {
+                alert('Password should be atlest 6 characters long')
+            } else if ($('#login-password').val() != $('#login-repassword').val()){
+                alert('Both passwords do not match');
+            } else {
+
+                var body = {
+                    password: $("#login-password").val(),
+                    token: '{{token}}'
+                };
+
+                console.log(body);
+                $("#login").prop('disabled', true);
+                $.post('/forgot', body, function (res) {
+                    $("#login").prop('disabled', false);
+                    if (res.status) {
+                        window.location = res.redirectURL;
+                    } else {
+                        alert(res.message);
+                    }
+                });
+
+            }
+
+        });
+
+    });
+</script>
+
+</body>
+
+</html>

@@ -36,12 +36,17 @@ keystone.set('500', function (err, req, res, next) {
 // Bind Routes
 exports = module.exports = function (app) {
     app.get('/', (req, res)=>{
-        res.redirect('/signin');
+        if (req.render) {
+            res.render('home');
+        }
+        else {
+            res.redirect('/signin');
+        }
     })
     app.get('/signin', (req, res, next)=>{
         var callbackUrl = req.query.url;
         if (!callbackUrl) {
-            callbackUrl = "/keystone";
+            callbackUrl = "/";
         }
         if (req.user) {
             var tk = jwt.sign({user: req.user}, tokenSecret, {expiresIn: 900});
@@ -150,6 +155,10 @@ exports = module.exports = function (app) {
 
     app.post('/forgotpassword', (req, res)=>{
         var email = req.body.email;
+        var callbackUrl = req.body.callbackUrl;
+        if (!callbackUrl) {
+            callbackUrl = '/';
+        }
         if (!email) {
             return res.json({status:false, message: 'Email not provided'});
         }
@@ -157,7 +166,7 @@ exports = module.exports = function (app) {
             if (!user) {
                 return res.json({status: false, message: 'No user with this email found'});
             }
-            var token = jwt.sign({token:'forgot'+user.verificationToken}, tokenSecret, {expiresIn: 900});
+            var token = jwt.sign({token:'forgot'+user.verificationToken, callbackUrl: callbackUrl}, tokenSecret, {expiresIn: 900});
             Mail.sendFMail(email, token, `${user.name.first} ${user.name.last}`);
             return res.json({status:true, message: 'Sent an email to reset password'});
         }, err=>{
@@ -177,7 +186,7 @@ exports = module.exports = function (app) {
                 if (token.substr(0, 6) != "forgot") return res.notfound();
                 User.model.findOne({verificationToken: token.substr(6)}).then(user=>{
                     if (!user) return res.notfound();
-                    res.render('forgot', {user: req.user, token: oldtoken, updates: keystone.get('updatesWeb')});
+                    res.render('forgot', {user: req.user, token: oldtoken, callbackUrl: decoded.callbackUrl});
                 }, err=>res.notfound());
             }
         });
@@ -196,6 +205,7 @@ exports = module.exports = function (app) {
             if (err) return res.json({status: 'Invaid token'});
             else {
                 var token = decoded.token;
+                var callbackUrl = decoded.callbackUrl;
                 console.log(token);
                 if (token.substr(0, 6) != "forgot") return res.json({status: 'Invaid token'});
                 User.model.findOne({verificationToken: token.substr(6)}).then(user=>{
@@ -203,7 +213,7 @@ exports = module.exports = function (app) {
                     user.password = password;
                     user.verificationToken = randtoken.generate(64);
                     user.save().then(user=>{
-                        res.json({status: true, redirectURL: '/dashboard', message: 'Updated password'});
+                        res.json({status: true, redirectURL: callbackUrl, message: 'Updated password'});
                     }, err=>{
                         res.json({status: false, message: 'Error'});
                     });
