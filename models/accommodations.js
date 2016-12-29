@@ -9,7 +9,7 @@ let Accommodation = new keystone.List('Accommodation', {
 var User = keystone.list('User');
 
 Accommodation.add({
-    user: { type: Types.Relationship, initial:true, required: true, ref: 'User', noedit: true},
+    user: { type: Types.Relationship, initial:true, required: true, ref: 'User', noedit: true, index:true},
     gender: {type: Types.Select, options: 'Male, Female', initial: true, required: true, noedit: true},
     on20: {type: Types.Boolean, default: false },
     on21: {type: Types.Boolean, default: false},
