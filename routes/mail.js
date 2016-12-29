@@ -688,7 +688,7 @@ mail.sendVEmail = function(tk, email) {
         to: email,
         subject: 'Email verfication',
         text: `Verify your email here : https://id.nvision.org.in/verify?token=${tk}`,
-        html: template(email, 'Welcome to &eta;vision', 'Here is the last step for signup', 'Click here to confirm', `https://id.nvision.org.in/verify?token=${tk}`)
+        html: template(email, 'Welcome to &eta;vision 2017 and Elan 2017', 'Here is the last step for signup', 'Click here to confirm', `https://id.nvision.org.in/verify?token=${tk}`)
     };
     transporter.sendMail(mailOptions, function(err, info){
         if (err) return console.log(err);
