@@ -1,0 +1,221 @@
+<!--<form action="/signin" method="post">
+<input type="text" name="email" placeholder="email"><br>
+<input type="password" name="password" placeholder="password"><br>
+<input type="submit"><br>
+</form><br><br>
+
+<form action="/signup" method="post">
+<input type="text" name="name" placeholder="name"><br>
+<input type="text" name="email" placeholder="email"><br>
+<input type="text" name="college" placeholder="college"><br>
+<input type="text" name="phone" placeholder="phone"><br>
+<input type="password" name="password" placeholder="password"><br>
+</form>-->
+
+
+
+<!DOCTYPE html>
+<html lang="en-IN">
+
+<head>
+    <meta charset="utf-8">
+    <title>Register | &eta;vision 2017 | Techno management fest of IIT Hyderabad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="&eta;vision is the techno-management fest of IIT Hyderabad.">
+    <meta name="copyright" content="&eta;vision 2017">
+    <meta name="author" content="&eta;vision 2017">
+    <meta name="keyword" content="nvision,vision,techno,tech,management,technical,iit hyderabad, iit,fest, competitions,events,event,hyderabad,iith,students,robots,sponsors,games,awesome,workshops,kludge,infero,cephid,ecell,robotics,equilibria,torque,electronica">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#283389">
+    <meta property="og:site_name" content="&eta;vision">
+    <meta property="og:title" content="&eta;vision 2017">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://nvision.org.in/img/logo.png">
+    <meta property="og:url" content="https://nvision.org.in/signin/">
+    <meta property="og:description" content="&eta;vision: techno-management Fest of IIT Hyderabad">
+
+    <link rel="stylesheet" href="https://nvision.org.in/css/animate.css">
+    <link rel="stylesheet" href="https://nvision.org.in/css/updates.css">
+    <link rel="stylesheet" href="https://nvision.org.in/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://nvision.org.in/css/main.css">
+    <link rel="stylesheet" href="https://nvision.org.in/css/style.css">
+    <link rel="stylesheet" href="https://nvision.org.in/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+    .md-close {
+      color: #fff;
+      margin-top: 6em !important;
+      border: 1px solid #fff;
+      transition-duration: 0.3s;
+    }
+    
+    .md-close:hover {
+      background-color: #fff !important;
+      color: #000 !important;
+    }
+    
+    .md-content {
+      /*width: 70vw;*/
+      /*height: 100vh;*/
+      text-align: center;
+      padding-top: 6em;
+      border: 1px solid #fff;
+    }
+    
+    .md-content {
+      background-color: rgba(0, 0, 0, 0.8) !important;
+    }
+
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: 0; 
+    }
+
+
+    .form-btn {
+      width: 100%;
+      font-weight: bold;
+      display: inline-block;
+      vertical-align: middle;
+      background: rgba(26, 171, 138,1);
+      color: #000;
+      border: none;
+      position: relative;
+      height: 40px;
+      font-size: 1.2em;
+      padding: 0.5em 2em;
+      cursor: pointer;
+      transition: 800ms ease all;
+      outline: none;
+    }
+    
+    .form-btn:hover {
+      background: rgba(26, 171, 138,0.2);
+    }
+    
+    .form-btn:before,
+    .form-btn:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 2px;
+      width: 0;
+      background: #1AAB8A;
+      transition: 400ms ease all;
+    }
+    
+    .form-btn:after {
+      right: inherit;
+      top: inherit;
+      left: 0;
+      bottom: 0;
+    }
+    
+    .form-btn:hover:before,
+    .form-btn:hover:after {
+      width: 100%;
+      transition: 800ms ease all;
+    }
+
+
+    .collapsible-header {
+        color: #000;
+        font-size: 20px;
+        font-weight: bold;
+        background-color: rgba(0,0,0,0.1);
+    }
+    body {
+        background-image: url("https://www.transparenttextures.com/patterns/crissxcross.png");
+        overflow-x:hidden;padding: 0 !important;background-color: rgba(0,0,0,0.05);
+    }
+    input {
+        color: #000 !important;
+    }
+    .the-logo {
+        width: 100%;
+        height: 150px;
+        background: url(/img/all_logo.png) center no-repeat;
+    }
+
+    @media only screen and (max-width: 768px) {
+      .the-logo {
+        background-size: 100%;
+      }
+    }
+
+    @media only screen and (min-width: 768px) {
+      .the-logo {
+        background-size: 25%;
+      }
+    }
+  </style>
+</head>
+
+<body class="custom-scrollbar">
+<div id="pre-loader"></div>
+<div class="container-fluid">
+
+    <div class="the-logo"></div>
+
+    <!-- <div class="row center" style="margin-top: 10px;">
+
+        <img src="/img/all_logo.png" height="150">
+    </div> -->
+
+    <div class="row row-cen">
+        <div class="col-lg-6 col-sm-12 col-cen" style="color: #000;padding: 10px; background-color: rgba(0,0,0,0.1); border: 2px solid rgba(0,0,0,0.1)">
+            <style type="text/css">
+                label {
+                    color: #000;
+                }
+            </style>
+            <form action="#">
+                <h3><strong>Accommodation</strong></h4>
+                <span>(clicking Enter key will submit the form)</span>
+                <h5>&#x20b9; 300/night (without food)</h5>
+                <h4>Gender:</h4>
+                <p class="center">
+                  <input class="with-gap" name="gender" type="radio" id="g-male" value="male" checked>
+                  <label for="g-male">Male</label>
+                </p>
+                <p class="center">
+                  <input class="with-gap" name="gender" type="radio" value="female" id="g-female">
+                  <label for="g-female">Female</label>
+                </p>
+
+                <h4>Days:</h4>
+                <p class="center">
+                  <input class="filled-in" name="days" type="checkbox" id="d-19">
+                  <label for="d-19">19<sup>th</sup> January</label>
+                </p>
+                <p class="center">
+                  <input class="filled-in" name="days" type="checkbox" id="d-20">
+                  <label for="d-20">20<sup>th</sup> January</label>
+                </p>
+                <p class="center">
+                  <input class="filled-in" name="days" type="checkbox" id="d-21">
+                  <label for="d-21">21<sup>st</sup> January</label>
+                </p>
+
+                <button class="form-btn" type="submit">Submit</button>
+
+            </form>
+
+        </div>
+    </div>
+
+
+</div>
+
+<script src="https://nvision.org.in/js/jquery.min.js"></script>
+<script src="https://nvision.org.in/js/bootstrap.min.js"></script>
+<script src="https://nvision.org.in/js/materialize.min.js"></script>
+<script src="https://nvision.org.in/js/main.js"></script>
+
+</body>
+
+</html>
