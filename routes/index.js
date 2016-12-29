@@ -36,7 +36,7 @@ keystone.set('500', function (err, req, res, next) {
 // Bind Routes
 exports = module.exports = function (app) {
     app.get('/', (req, res)=>{
-        if (req.render) {
+        if (req.user) {
             res.render('home');
         }
         else {
@@ -225,11 +225,15 @@ exports = module.exports = function (app) {
     });
 
     app.post('/resendemail', (req, res)=>{
+        var callbackUrl = req.body.url;
+        if (!callbackUrl) {
+            callbackUrl = '/';
+        }
         if (!req.user){
             return res.json({status:false, message: 'Auth failed'});
         }
         if (!req.emailVerified) {
-        var token = jwt.sign({token:req.user.verificationToken}, tokenSecret, {expiresIn: 900});
+        var token = jwt.sign({token:req.user.verificationToken, callbackUrl: callbackUrl}, tokenSecret, {expiresIn: 900});
             sendVEmail(token, req.user.email);
             return res.json({status:true});
         }

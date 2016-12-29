@@ -231,7 +231,7 @@ var template = (email, heading, body, aname, alink)=>{return `
 								<td width="60%" height="70" valign="middle" style="padding-bottom:20px;">
 									<div class="contentEditableContainer contentTextEditable">
 					                	<div class="contentEditable" align='left' >
-					                  		<span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">Sent to ${email} by &eta;vision 2017</span>
+					                  		<span style="font-size:13px;color:#181818;font-family:Helvetica, Arial, sans-serif;line-height:200%;">Sent to ${email}</span>
 											<br/>
 											<span style="font-size:11px;color:#555;font-family:Helvetica, Arial, sans-serif;line-height:200%;">IIT Hyderabad</span>
 											<br/></div>

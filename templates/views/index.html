@@ -212,17 +212,17 @@
                     </div>
                 </li>
             </ul>
-            
+            <a href="#" data-toggle="modal" data-target="#forgotM" style="font-size: 1.2em;margin-top: 1em;float:right">Forgot Password?</a>
         </div>
     </div>
 
 
 </div>
 
-<div id="forgotM" class="modal fade" style="background-color: transparent;">
+<div id="forgotM" class="modal fade" style="background-color: transparent;color: black;">
 <div class="modal-dialog">
-    <div class="modal-content" style="background-color: black;border-color: wheat;">
-<button type="button" class="close" data-dismiss="modal" style="font-size: 3em;color: white;">&times;</button>
+    <div class="modal-content">
+<button type="button" class="close" data-dismiss="modal" style="font-size: 3em;">&times;</button>
 <div class="modal-header">
     <h6>Enter your email</h6>
 </div>
@@ -334,7 +334,8 @@
             } else {
 
                 var body = {
-                    email: $("#forgot-email").val()
+                    email: $("#forgot-email").val(),
+                    callbackUrl: '{{callbackUrl}}'
                 };
 
                 console.log(body);
