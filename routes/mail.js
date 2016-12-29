@@ -161,7 +161,7 @@ var template = (email, heading, body, aname, alink)=>{return `
 								<td width="200" valign="top" align="center">
 									<div class="contentEditableContainer contentImageEditable">
 					                	<div class="contentEditable" align='center' >
-					                  		<img src="https://nvision.org.in/img/nvision_b.png" height="120"  alt='Logo'  data-default="placeholder" />
+					                  		<img src="https://id.nvision.org.in/img/nvision_b.png" height="120"  alt='Logo'  data-default="placeholder" />
 					                	</div>
 					              	</div>
 								</td>
@@ -687,8 +687,8 @@ mail.sendVEmail = function(tk, email) {
         from: 'Nvision 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
         to: email,
         subject: 'Email verfication - ηvision 2017',
-        text: `Verify your email here : https://nvision.org.in/verify?token=${tk}`,
-        html: template(email, 'Welcome to &eta;vision', 'Here is the last step for signup', 'Click here to confirm', `https://nvision.org.in/verify?token=${tk}`)
+        text: `Verify your email here : https://id.nvision.org.in/verify?token=${tk}`,
+        html: template(email, 'Welcome to &eta;vision', 'Here is the last step for signup', 'Click here to confirm', `https://id.nvision.org.in/verify?token=${tk}`)
     };
     transporter.sendMail(mailOptions, function(err, info){
         if (err) return console.log(err);
@@ -715,8 +715,8 @@ mail.sendFMail = function(email, tk, name) {
         from: 'Nvision 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
         to: email,
         subject: 'Forgot Password - ηvision 2017',
-        text: `Reset your password here : https://nvision.org.in/forgot?token=${tk}`,
-        html: template(email, `Hi ${name},`, 'Click on the button below to reset your password', 'Reset Password', `https://nvision.org.in/forgot?token=${tk}`)
+        text: `Reset your password here : https://id.nvision.org.in/forgot?token=${tk}`,
+        html: template(email, `Hi ${name},`, 'Click on the button below to reset your password', 'Reset Password', `https://id.nvision.org.in/forgot?token=${tk}`)
     };
 	console.log(mailOptions.from);
     transporter.sendMail(mailOptions, function(err, info){
