@@ -688,7 +688,7 @@ mail.sendVEmail = function(tk, email) {
         to: email,
         subject: 'Email verfication',
         text: `Verify your email here : https://id.nvision.org.in/verify?token=${tk}`,
-        html: template(email, 'Welcome to &eta;vision 2017 and Elan 2017', 'Here is the last step for signup', 'Click here to confirm', `https://id.nvision.org.in/verify?token=${tk}`)
+        html: template(email, '', 'Here is the last step for signup', 'Click here to confirm', `https://id.nvision.org.in/verify?token=${tk}`)
     };
     transporter.sendMail(mailOptions, function(err, info){
         if (err) return console.log(err);
@@ -698,9 +698,9 @@ mail.sendVEmail = function(tk, email) {
 
 mail.sendRegisteredMail = function(email, name, ename, elink) {
 	var mailOptions = {
-        from: 'Nvision 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
+        from: 'Nvision 2017 and Elan 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
         to: email,
-        subject: 'Successfully registered for event '+ename+' - ηvision 2017',
+        subject: 'Successfully registered for event '+ename,
         text: `Successfully registered for event ${ename}`,
         html: template(email, `Hi ${name},`, `You have successfully registered for the event ${ename}`, `More about ${ename}`, elink)
     };
