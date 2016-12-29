@@ -64,7 +64,7 @@ exports = module.exports = function (app) {
     app.post('/signup', (req, res) => {
         var tk = randtoken.generate(64);
         if (!req.body.callbackUrl) {
-            return res.json({status: false, message: 'No callback url provided'});
+            callbackUrl = '/';
         }
         if (!req.body.name) {
             return res.json({status:false, message: 'Name cannot be empty'});
