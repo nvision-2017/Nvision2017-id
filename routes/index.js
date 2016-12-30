@@ -242,12 +242,12 @@ exports = module.exports = function (app) {
             callbackUrl = '/';
         }
         if (!req.user){
-            return res.json({status:false, message: 'Auth failed'});
+            return res.redirect(callbackUrl+'?sent=true');
         }
         if (!req.emailVerified) {
         var token = jwt.sign({token:req.user.verificationToken, callbackUrl: callbackUrl}, tokenSecret, {expiresIn: 900});
             sendVEmail(token, req.user.email, req.user.name.first);
-            return res.json({status:true});
+            return res.redirect(callbackUrl+'?sent=true')
         }
     });
 
