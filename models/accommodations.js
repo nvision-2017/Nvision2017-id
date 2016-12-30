@@ -10,12 +10,13 @@ var User = keystone.list('User');
 
 Accommodation.add({
     user: { type: Types.Relationship, initial:true, required: true, ref: 'User', noedit: true, index:true},
-    gender: {type: Types.Select, options: 'Male, Female', initial: true, required: true, noedit: true},
+    // gender: {type: Types.Select, options: 'Male, Female', initial: true, required: true, noedit: true},
     on20: {type: Types.Boolean, default: false },
     on21: {type: Types.Boolean, default: false},
     on22: {type: Types.Boolean, default: false},
     confirmed: {type: Types.Boolean, default: false},
-    noOfPeople: {type: Types.Number, default: 1, required: true, noedit: true},
+    noOfMale: {type: Types.Number, default: 0, required: true, noedit: true},
+    noOfFemale: {type: Types.Number, default: 0, required: true, noedit: true},
     mailStatus: {type: Types.Boolean, noedit: true, default: false},
     notes: {type: Types.Textarea}
 });
@@ -40,5 +41,5 @@ Accommodation.schema.pre('save', function(next){
     }
 });
 
-Accommodation.defaultColumns = 'user, gender, noOfPeople, on20, on21, on22, confirmed, notes';
+Accommodation.defaultColumns = 'user, noOfMale, noOfFemale, on20, on21, on22, confirmed, notes';
 Accommodation.register();

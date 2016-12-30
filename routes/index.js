@@ -269,16 +269,24 @@ exports = module.exports = function (app) {
         if (!req.user.emailVerified) {
             return res.send({status: false, message: 'Email is not verified'});
         }
-        if (!req.body.gender || (req.body.gender != 'Male' && req.body.gender != 'Female')) {
-            return res.send({status: false, message: 'Gender not specified'});
+        if (req.body.noOfMale == 0 && req.body.noOfFemale == 0) {
+            return res.send({status: false, message: 'Total number of people cannot be zero'});
         }
+        if (req.body.noOfMale < 0 || req.body.noOfFemale < 0) {
+            return res.send({status: false, message: 'Number of people cannot be negative'});
+        }
+        // if (!req.body.gender || (req.body.gender != 'Male' && req.body.gender != 'Female')) {
+        //     return res.send({status: false, message: 'Gender not specified'});
+        // }
+        
         Accommodation.model.findOne({user: req.user._id}).then(acc=>{
             if (acc) {
-                acc.gender = req.body.gender;
+                // acc.gender = req.body.gender;
                 acc.on20 = req.body.on20;
                 acc.on21 = req.body.on21;
                 acc.on22 = req.body.on22;
-                acc.noOfPeople = req.body.noOfPeople;
+                acc.noOfMale = req.body.noOfMale;
+                acc.noOfFemale = req.body.noOfFemale;
                 acc.mailStatus = false;
                 acc.confirmed = false;
                 acc.save().then(acc=>{
@@ -290,11 +298,12 @@ exports = module.exports = function (app) {
             } else {
                 new Accommodation.model({
                     user: req.user._id,
-                    gender: req.body.gender,
+                    // gender: req.body.gender,
                     on20: req.body.on20,
                     on21: req.body.on21,
                     on22: req.body.on22,
-                    noOfPeople: req.body.noOfPeople,
+                    noOfMale: req.body.noOfMale,
+                    noOfFemale: req.body.noOfFemale,
                     confirmed: false,
                     mailStatus: false
                 }).save().then(acc=>{

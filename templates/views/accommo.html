@@ -160,8 +160,9 @@
             {{#if accommo}}
             <div id="accommodiv">
               <p class="center">
-                <h5>Gender : {{accommo.gender}}</h5>
-                <h5>Number of people : {{accommo.noOfPeople}}</h5>
+                <!--<h5>Gender : {{accommo.gender}}</h5>-->
+                <h5>Number of male people : {{accommo.noOfMale}}</h5>
+                <h5>Number of female people : {{accommo.noOfFemale}}</h5>
               </p>
               <p class="center">
                 <h5>Days</h5>
@@ -177,7 +178,7 @@
             <form action="/accommodation" method="post" id="accommoform">
                 <span>(clicking Enter key will submit the form)</span>
                 <h5>&#x20b9; 300/night (without food)</h5>
-                <h4>Gender:</h4>
+                <!--<h4>Gender:</h4>
                 <p class="center">
                   <input class="with-gap" name="gender" type="radio" id="g-Male" value="Male" checked>
                   <label for="g-Male">Male</label>
@@ -185,9 +186,10 @@
                 <p class="center">
                   <input class="with-gap" name="gender" type="radio" value="Female" id="g-Female">
                   <label for="g-Female">Female</label>
-                </p>
+                </p>-->
 
-                <h5>Number of people : <input type="number" name="noOfPeople" id="no" value="1" style="width:3em;"></h5>
+                <h5>Number of male people : <input type="number" name="noOfMale" id="no-male" value="0" style="width:3em;"></h5>
+                <h5>Number of female people : <input type="number" name="noOfFemale" id="no-female" value="0" style="width:3em;"></h5>
 
                 <h4>Days:</h4>
                 <p class="center">
@@ -222,10 +224,12 @@
 $(document).ready(function(){
   {{#if accommo}}
   $("#accommoform").hide();
-  $("#g-"+"{{accommo.gender}}").prop('checked', true);
+  // $("#g-"+"{{accommo.gender}}").prop('checked', true);
   $("#d-20").prop('checked', {{accommo.on20}});
   $("#d-21").prop('checked', {{accommo.on21}});
   $("#d-22").prop('checked', {{accommo.on22}});
+  $("#no-male").val({{accommo.noOfMale}});
+  $("#no-female").val({{accommo.noOfFemale}});
   $("#accommolink").click(function(){
     $("#accommoform").toggle();
     $("#accommodiv").toggle();
@@ -234,11 +238,12 @@ $(document).ready(function(){
   $("#accommoform").submit(function(e){
     e.preventDefault();
     var body = {
-      gender: $("input[name=gender]:checked").val(),
+      // gender: $("input[name=gender]:checked").val(),
       on20: $("#d-20").prop('checked'),
       on21: $("#d-21").prop('checked'),
       on22: $("#d-22").prop('checked'),
-      noOfPeople: $("#no").val()
+      noOfMale: $("#no-male").val(),
+      noOfFemale: $("#no-female").val()
     }
     $.post('/accommodation', body, function(res){
       if (res.status) {
