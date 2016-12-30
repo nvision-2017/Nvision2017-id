@@ -137,7 +137,7 @@ exports = module.exports = function (app) {
         jwt.verify(token, tokenSecret, function(err, decoded){
             if (err) {
                 var decoded = jwt.decode(token);
-                if (decoded) res.redirect(decoded.callbackUrl+'?token='+jwt.sign({suer: req.user}, tokenSecret, {expiresIn: 900}));
+                if (decoded) res.redirect(decoded.callbackUrl+'?token='+jwt.sign({user: req.user}, tokenSecret, {expiresIn: 900}));
                 else res.notfound();
             }
             else {
@@ -152,7 +152,7 @@ exports = module.exports = function (app) {
                 }, err=>{
                     var decoded = jwt.decode(token);
                     console.log(decoded);
-                    res.redirect(decoded.callbackUrl+'?token='+jwt.sign({user: usr}, tokenSecret, {expiresIn: 900}));
+                    res.redirect(decoded.callbackUrl+'?token='+jwt.sign({user: req.user}, tokenSecret, {expiresIn: 900}));
                 });
             }
         });
