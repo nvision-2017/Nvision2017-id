@@ -145,7 +145,7 @@ exports = module.exports = function (app) {
                     if (!user) return res.redirect(decoded.callbackUrl);
                     user.emailVerified = true;
                     user.save().then(usr=>{
-                        res.redirect(decoded.callbackUrl);
+                        res.redirect(decoded.callbackUrl+'?token='+jwt.sign({user: req.user}, tokenSecret, {expiresIn: 900}));
                     }, e=>{
                         res.redirect(decoded.callbackUrl);
                     });
@@ -236,8 +236,8 @@ exports = module.exports = function (app) {
         });
     });
 
-    app.post('/resendemail', (req, res)=>{
-        var callbackUrl = req.body.url;
+    app.get('/resendemail', (req, res)=>{
+        var callbackUrl = req.query.url;
         if (!callbackUrl) {
             callbackUrl = '/';
         }
