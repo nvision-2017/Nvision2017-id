@@ -116,7 +116,7 @@ exports = module.exports = function (app) {
             verificationToken: tk
         }).save().then((user)=>{
             var token = jwt.sign({token:tk, callbackUrl: req.body.callbackUrl}, tokenSecret, {expiresIn: 900});
-            sendVEmail(token, req.body.email);
+            sendVEmail(token, req.body.email, user.name.first+' '+user.name.last);
             keystone.session.signin({
                 email: req.body.email,
                 password: req.body.password
@@ -140,7 +140,7 @@ exports = module.exports = function (app) {
             }
             else {
                 User.model.findOne({emailVerified: false, verificationToken: decoded.token}).then(user=>{
-                    if (!user) return res.notfound();
+                    if (!user) res.redirect(decoded.callbackUrl);
                     user.emailVerified = true;
                     user.save().then(usr=>{
                         res.redirect(decoded.callbackUrl);
@@ -242,7 +242,7 @@ exports = module.exports = function (app) {
         }
         if (!req.emailVerified) {
         var token = jwt.sign({token:req.user.verificationToken, callbackUrl: callbackUrl}, tokenSecret, {expiresIn: 900});
-            sendVEmail(token, req.user.email);
+            sendVEmail(token, req.user.email, req.user.name.first+' '+req.user.name.last);
             return res.json({status:true});
         }
     });

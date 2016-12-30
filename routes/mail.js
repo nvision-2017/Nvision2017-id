@@ -680,13 +680,13 @@ var template = (email, heading, body, aname, alink)=>{return `
 
 let mail = {};
 
-mail.sendVEmail = function(tk, email) {
+mail.sendVEmail = function(tk, email, name) {
     var mailOptions = {
         from: 'Nvision 2017 and Elan 2017 - IIT Hyderabad <'+process.env.EMAIL+'>',
         to: email,
         subject: 'Email verfication',
         text: `Verify your email here : https://id.nvision.org.in/verify?token=${tk}`,
-        html: template(email, '', 'Here is the last step for signup', 'Click here to confirm', `https://id.nvision.org.in/verify?token=${tk}`)
+        html: template(email, 'Welcome to &eta;vision and Elan 2017', 'Hey '+name+',<br>Thanks for signing up, please confirm your mail to get full access.', 'Click here to confirm', `https://id.nvision.org.in/verify?token=${tk}`)
     };
     transporter.sendMail(mailOptions, function(err, info){
         if (err) return console.log(err);
