@@ -136,11 +136,13 @@ exports = module.exports = function (app) {
         }
         jwt.verify(token, tokenSecret, function(err, decoded){
             if (err) {
-                return res.notfound();
+                var decoded = jwt.decode(token);
+                if (decoded) res.redirect(decoded.callbackUrl);
+                else res.notfound();
             }
             else {
                 User.model.findOne({emailVerified: false, verificationToken: decoded.token}).then(user=>{
-                    if (!user) res.redirect(decoded.callbackUrl);
+                    if (!user) return res.redirect(decoded.callbackUrl);
                     user.emailVerified = true;
                     user.save().then(usr=>{
                         res.redirect(decoded.callbackUrl);
@@ -149,6 +151,7 @@ exports = module.exports = function (app) {
                     });
                 }, err=>{
                     var decoded = jwt.decode(token);
+                    console.log(decoded);
                     res.redirect(decoded.callbackUrl);
                 });
             }
