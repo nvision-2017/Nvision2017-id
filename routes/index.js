@@ -148,7 +148,8 @@ exports = module.exports = function (app) {
                         res.redirect(decoded.callbackUrl);
                     });
                 }, err=>{
-                    res.notfound();
+                    var decoded = jwt.decode(token);
+                    res.redirect(decoded.callbackUrl);
                 });
             }
         });
