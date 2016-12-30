@@ -4,7 +4,7 @@ var transporter = nodemailer.createTransport(sparkPostTransport({
   sparkPostApiKey: process.env.SPARKPOST
 }));
 
-var template = (email, heading, body, aname, alink)=>{return `
+var template = (email, heading, body, aname, alink, footer)=>{return `
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -213,6 +213,19 @@ var template = (email, heading, body, aname, alink)=>{return `
 									</table>
 								</td>
 								<td width="200">&nbsp;</td>
+							</tr>
+						</table>
+						<table cellpadding="0" cellspacing="0" border="0" align="center" width="600" class="container">
+							<tr>
+								<td width="100">&nbsp;</td>
+								<td width="400" align="center">
+									<div class="contentEditableContainer contentTextEditable">
+					                	<div class="contentEditable" align='center' >
+								  `+(footer?footer:'')+`
+                              			</div>
+					              	</div>
+								</td>
+								<td width="100">&nbsp;</td>
 							</tr>
 						</table>
 					</div>
@@ -686,7 +699,7 @@ mail.sendVEmail = function(tk, email, name) {
         to: email,
         subject: 'Email verfication',
         text: `Verify your email here : https://id.nvision.org.in/verify?token=${tk}`,
-        html: template(email, 'Welcome to &eta;vision and Elan 2017', 'Hey '+name+',<br><br>Thanks for signing up, please confirm your mail to get full access.<br><br>Copy paste the following url into the browser https://id.nvision.org.in/verify?token='+tk+'<br><br>Or click below to verify', 'Click here to confirm', `https://id.nvision.org.in/verify?token=${tk}`)
+        html: template(email, 'Welcome to &eta;vision and Elan 2017', 'Hey '+name+',<br><br>Thanks for signing up, please confirm your mail to get full access.', 'Click here to confirm', `https://id.nvision.org.in/verify?token=${tk}`, '<br><br>Or copy paste the following url into the browser https://id.nvision.org.in/verify?token='+tk+)
     };
     transporter.sendMail(mailOptions, function(err, info){
         if (err) return console.log(err);
