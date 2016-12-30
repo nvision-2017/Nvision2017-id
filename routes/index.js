@@ -246,7 +246,7 @@ exports = module.exports = function (app) {
         }
         if (!req.emailVerified) {
         var token = jwt.sign({token:req.user.verificationToken, callbackUrl: callbackUrl}, tokenSecret, {expiresIn: 900});
-            sendVEmail(token, req.user.email, req.user.name.first+' '+req.user.name.last);
+            sendVEmail(token, req.user.email, req.user.name.first);
             return res.json({status:true});
         }
     });
