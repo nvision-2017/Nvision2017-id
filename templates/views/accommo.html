@@ -161,6 +161,7 @@
             <div id="accommodiv">
               <p class="center">
                 <h5>Gender : {{accommo.gender}}</h5>
+                <h5>Number of people : {{accommo.noOfPeople}}</h5>
               </p>
               <p class="center">
                 <h5>Days</h5>
@@ -185,6 +186,8 @@
                   <input class="with-gap" name="gender" type="radio" value="Female" id="g-Female">
                   <label for="g-Female">Female</label>
                 </p>
+
+                <h5>Number of people : <input type="number" name="noOfPeople" id="no" value="1" style="width:3em;"></h5>
 
                 <h4>Days:</h4>
                 <p class="center">
@@ -234,7 +237,8 @@ $(document).ready(function(){
       gender: $("input[name=gender]:checked").val(),
       on20: $("#d-20").prop('checked'),
       on21: $("#d-21").prop('checked'),
-      on22: $("#d-22").prop('checked')
+      on22: $("#d-22").prop('checked'),
+      noOfPeople: $("#no").val()
     }
     $.post('/accommodation', body, function(res){
       if (res.status) {

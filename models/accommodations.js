@@ -15,6 +15,7 @@ Accommodation.add({
     on21: {type: Types.Boolean, default: false},
     on22: {type: Types.Boolean, default: false},
     confirmed: {type: Types.Boolean, default: false},
+    noOfPeople: {type: Types.Number, default: 1, required: true, noedit: true},
     mailStatus: {type: Types.Boolean, noedit: true, default: false},
     notes: {type: Types.Textarea}
 });
@@ -39,5 +40,5 @@ Accommodation.schema.pre('save', function(next){
     }
 });
 
-Accommodation.defaultColumns = 'user, gender, on20, on21, on22, confirmed, notes';
+Accommodation.defaultColumns = 'user, gender, noOfPeople, on20, on21, on22, confirmed, notes';
 Accommodation.register();

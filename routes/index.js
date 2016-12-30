@@ -267,7 +267,7 @@ exports = module.exports = function (app) {
             return res.send({status: false, message: 'Auth failed'});
         }
         if (!req.user.emailVerified) {
-            return rres.send({status: false, message: 'Email is not verified'});
+            return res.send({status: false, message: 'Email is not verified'});
         }
         if (!req.body.gender || (req.body.gender != 'Male' && req.body.gender != 'Female')) {
             return res.send({status: false, message: 'Gender not specified'});
@@ -278,6 +278,7 @@ exports = module.exports = function (app) {
                 acc.on20 = req.body.on20;
                 acc.on21 = req.body.on21;
                 acc.on22 = req.body.on22;
+                acc.noOfPeople = req.body.noOfPeople;
                 acc.mailStatus = false;
                 acc.confirmed = false;
                 acc.save().then(acc=>{
@@ -293,6 +294,7 @@ exports = module.exports = function (app) {
                     on20: req.body.on20,
                     on21: req.body.on21,
                     on22: req.body.on22,
+                    noOfPeople: req.body.noOfPeople,
                     confirmed: false,
                     mailStatus: false
                 }).save().then(acc=>{
