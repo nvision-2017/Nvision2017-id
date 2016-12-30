@@ -54,7 +54,7 @@ exports = module.exports = function (app) {
             var user = req.user;
             user.password = undefined;
             var tk = jwt.sign({user: user}, tokenSecret, {expiresIn: 900});
-            return res.redirect(callbackUrl+"?token="+tk);
+            return res.redirect(callbackUrl+"?token="+tk+"&signup=0");
         }
         var view = new keystone.View(req, res);
         view.render('index', {callbackUrl: callbackUrl});
@@ -151,7 +151,6 @@ exports = module.exports = function (app) {
                     });
                 }, err=>{
                     var decoded = jwt.decode(token);
-                    console.log(decoded);
                     res.redirect(decoded.callbackUrl+'?token='+jwt.sign({user: req.user}, tokenSecret, {expiresIn: 900}));
                 });
             }

@@ -281,7 +281,7 @@
                 $.post('/signup', body, function (res) {
                     $("#signup").prop('disabled', false);
                     if (res.status) {
-                        window.location = '{{callbackUrl}}?token='+res.token;
+                        window.location = '{{callbackUrl}}?token='+res.token+'&signup=1';
                     } else {
                         alert(res.message);
                     }
@@ -313,7 +313,7 @@
                 $.post('/signin', body, function (res) {
                     $("#login").prop('disabled', false);
                     if (res.status) {
-                        window.location = '{{callbackUrl}}?token='+res.token;
+                        window.location = '{{callbackUrl}}?token='+res.token+'&signup=0;
                     } else {
                         alert(res.message);
                     }
