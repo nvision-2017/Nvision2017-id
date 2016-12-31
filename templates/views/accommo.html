@@ -177,7 +177,8 @@
             {{/if}}
             <form action="/accommodation" method="post" id="accommoform">
                 <span>(clicking Enter key will submit the form)</span>
-                <h5>&#x20b9; 300/night (without food)</h5>
+                <h5>&#x20b9; 300/night</h5>
+                <h6>Check this <a href="https://nvision.org.in/hospitality" target="_blank">link</a> for details and instructions</h6>
                 <!--<h4>Gender:</h4>
                 <p class="center">
                   <input class="with-gap" name="gender" type="radio" id="g-Male" value="Male" checked>
@@ -188,8 +189,16 @@
                   <label for="g-Female">Female</label>
                 </p>-->
 
-                <h5>Number of male people : <input type="number" name="noOfMale" id="no-male" value="0" style="width:3em;"></h5>
-                <h5>Number of female people : <input type="number" name="noOfFemale" id="no-female" value="0" style="width:3em;"></h5>
+                <p class="center">
+                  <input type="number" name="noOfMale" id="no-male" value="0" style="width:3em;">
+                  <label for="no-male" style="font-size: 1em">Number of males</label>
+                </p>
+
+                <p class="center">
+                 <input type="number" name="noOfFemale" id="no-female" value="0" style="width:3em;">
+                  <label for="no-male" style="font-size: 1em">Number of females</label>
+                </p>
+                <h5>Enter no. of female people : </h5>
 
                 <h4>Days:</h4>
                 <p class="center">
