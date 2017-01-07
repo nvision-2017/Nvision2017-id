@@ -61,6 +61,7 @@ exports = module.exports = function (app) {
     });
 
     app.post('/signin', (req, res)=>{
+        if (req.body.email) req.body.email = req.body.email.toLowerCase();
         keystone.session.signin({
             email: req.body.email,
             password: req.body.password
@@ -99,6 +100,7 @@ exports = module.exports = function (app) {
         if (!req.body.email) {
             return res.json({status:false, message: 'Enter a valid email address'});
         }
+        req.body.email = req.body.email.toLowerCase();
         if (!req.body.college) {
             return res.json({status:false, message: 'College name cannot be empty'});
         }
