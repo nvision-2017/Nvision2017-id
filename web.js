@@ -15,7 +15,6 @@ keystone.init({
   'mongo': 'mongodb://localhost/nvision2017',
 
   'session': true,
-  'session store': 'mongo',
   'auth': true,
   'signin url': '/signin',
   'signin redirect': '/dashboard',
