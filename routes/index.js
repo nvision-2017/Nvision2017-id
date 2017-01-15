@@ -284,6 +284,7 @@ exports = module.exports = function (app) {
         Accommodation.model.findOne({user: req.user._id}).then(acc=>{
             if (acc) {
                 // acc.gender = req.body.gender;
+                acc.on19 = req.body.on19;
                 acc.on20 = req.body.on20;
                 acc.on21 = req.body.on21;
                 acc.on22 = req.body.on22;
@@ -301,6 +302,7 @@ exports = module.exports = function (app) {
                 new Accommodation.model({
                     user: req.user._id,
                     // gender: req.body.gender,
+                    on19: req.body.on19,
                     on20: req.body.on20,
                     on21: req.body.on21,
                     on22: req.body.on22,

@@ -166,9 +166,10 @@
               </p>
               <p class="center">
                 <h5>Days</h5>
+                <h6>19<sup>th</sup> January : {{#if accommo.on19}}Yes{{else}}No{{/if}}</h6>
                 <h6>20<sup>th</sup> January : {{#if accommo.on20}}Yes{{else}}No{{/if}}</h6>
-                <h6>21<sup>th</sup> January : {{#if accommo.on21}}Yes{{else}}No{{/if}}</h6>
-                <h6>22<sup>th</sup> January : {{#if accommo.on22}}Yes{{else}}No{{/if}}</h6>
+                <h6>21<sup>st</sup> January : {{#if accommo.on21}}Yes{{else}}No{{/if}}</h6>
+                <h6>22<sup>nd</sup> January : {{#if accommo.on22}}Yes{{else}}No{{/if}}</h6>
               </p>
               <p>
                 <a href="#" id="accommolink">Edit accommodation details</a>
@@ -200,6 +201,10 @@
                 </p>
 
                 <h4>Days:</h4>
+                <p class="center">
+                  <input class="filled-in" name="on19" type="checkbox" id="d-19">
+                  <label for="d-19">19<sup>th</sup> January</label>
+                </p>
                 <p class="center">
                   <input class="filled-in" name="on20" type="checkbox" id="d-20">
                   <label for="d-20">20<sup>th</sup> January</label>
@@ -233,6 +238,7 @@ $(document).ready(function(){
   {{#if accommo}}
   $("#accommoform").hide();
   // $("#g-"+"{{accommo.gender}}").prop('checked', true);
+  $("#d-19").prop('checked', {{accommo.on19}});
   $("#d-20").prop('checked', {{accommo.on20}});
   $("#d-21").prop('checked', {{accommo.on21}});
   $("#d-22").prop('checked', {{accommo.on22}});
@@ -247,6 +253,7 @@ $(document).ready(function(){
     e.preventDefault();
     var body = {
       // gender: $("input[name=gender]:checked").val(),
+      on19: $("#d-19").prop('checked'),
       on20: $("#d-20").prop('checked'),
       on21: $("#d-21").prop('checked'),
       on22: $("#d-22").prop('checked'),
